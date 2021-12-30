@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Gauss-Jordan")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Extends Gauss-Jordan Elimination and Gaussian Elimination to NeosVR")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Hiatus Labs")]
 [assembly: AssemblyProduct("Gauss-Jordan")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]

@@ -2,15 +2,16 @@
 using FrooxEngine.LogiX;
 using BaseX;
 using Mehroz;
+using System;
 
 namespace MatrixMod
 {
-    [NodeName("Reduced Row Echelon Form")]
-    [NodeOverload("Reduced-Row-Echelon-Form")]
+    [NodeName("Reduced Echelon Form")]
+    [NodeOverload("Reduced-Echelon-Form")]
     [Category(new string[] { "LogiX/Math/Matrix" })]
 
     // GaussJordanElimination
-    public sealed class GaussJordanElimination_d2x2 : LogixOperator<double2>
+    public sealed class GaussianElimination_d2x2 : LogixOperator<double2>
     {
         public readonly Input<double2x2> LinearEquationMatrix;
         public readonly Input<double2> LinearSolutionMatrix;
@@ -24,7 +25,7 @@ namespace MatrixMod
                 m2[0, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().x);
                 m2[1, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().y);
                 Matrix m3 = Matrix.Concatenate(m1, m2);
-                m3 = m3.ReducedEchelonForm();
+                m3 = m3.EchelonForm();
                 return new double2(m3[0, 2].ToDouble(), m3[1, 2].ToDouble());
             }
         }

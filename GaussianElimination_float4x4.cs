@@ -6,11 +6,11 @@ using Mehroz;
 namespace MatrixMod
 {
     [HiddenNode] // Hide overload from node browser
-    [NodeName("Reduced Row Echelon Form")]
-    [NodeOverload("Reduced-Row-Echelon-Form")]
+    [NodeName("Reduced Echelon Form")]
+    [NodeOverload("Reduced-Echelon-Form")]
     [Category(new string[] { "LogiX/Math/Matrix" })]
 
-    public sealed class GaussJordanElimination_float4x4 : LogixOperator<float4>
+    public sealed class GaussianElimination_float4x4 : LogixOperator<float4>
     {
         public readonly Input<float4x4> LinearEquationMatrix;
         public readonly Input<float4> LinearSolutionMatrix;
@@ -27,7 +27,7 @@ namespace MatrixMod
                 m2[2, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().z);
                 m2[3, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().w);
                 Matrix m3 = Matrix.Concatenate(m1, m2);
-                m3 = m3.ReducedEchelonForm();
+                m3 = m3.EchelonForm();
                 // m3.Rows should be 2
                 return new float4((float)m3[0, m3.Rows].ToDouble(), (float)m3[1, m3.Rows].ToDouble(), (float)m3[2, m3.Rows].ToDouble(), (float)m3[3, m3.Rows].ToDouble());
             } 
