@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Gauss-Jordan")]
+[assembly: AssemblyTitle("MatrixUtils")]
 [assembly: AssemblyDescription("Extends Gauss-Jordan Elimination and Gaussian Elimination to NeosVR")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hiatus Labs")]
-[assembly: AssemblyProduct("Gauss-Jordan")]
+[assembly: AssemblyProduct("MatrixUtils")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

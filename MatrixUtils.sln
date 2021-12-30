@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gauss-Jordan", "Gauss-Jordan.csproj", "{5AC76FB3-267A-45AB-BC7F-E8AFC8F7806E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixUtils", "MatrixUtils.csproj", "{5AC76FB3-267A-45AB-BC7F-E8AFC8F7806E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
