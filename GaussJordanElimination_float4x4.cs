@@ -8,18 +8,18 @@ namespace MatrixMod
 {
     [HiddenNode] // Hide overload from node browser
     [NodeName("Reduced Echelon Form")]
-    [NodeOverload("GaussJordanElimination")]
+    [NodeOverload("Reduced-Echelon-Form")]
     [Category(new string[] { "LogiX/Math/Matrix" })]
 
-    public sealed class GaussJordanElimination_float4x4 : LogixNode
+    public sealed class GaussJordanElimination_double4x4 : LogixNode
     {
-        public readonly Input<float4x4> LinearEquationMatrix;
-        public readonly Input<float4> LinearSolutionMatrix;
-        public readonly Output<float4> SolutionMatrix;
+        public readonly Input<double4x4> LinearEquationMatrix;
+        public readonly Input<double4> LinearSolutionMatrix;
+        public readonly Output<double4> SolutionMatrix;
 
         protected override void OnEvaluate()
         {
-            Matrix m1 = new Matrix(((double4x4) LinearEquationMatrix.EvaluateRaw()).To2DArray());
+            Matrix m1 = new Matrix(LinearEquationMatrix.EvaluateRaw().To2DArray());
             Matrix m2 = new Matrix(4, 1);
             m2[0, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().x);
             m2[1, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().y);
@@ -28,7 +28,7 @@ namespace MatrixMod
             Matrix m3 = Matrix.Concatenate(m1, m2);
             m3 = m3.ReducedEchelonForm();
             // m3.Rows should be 2
-            SolutionMatrix.Value = new float4((float) m3[0, m3.Rows].ToDouble(), (float) m3[1, m3.Rows].ToDouble(), (float) m3[2, m3.Rows].ToDouble(), (float) m3[3, m3.Rows].ToDouble());
+            SolutionMatrix.Value = new double4(m3[0, m3.Rows].ToDouble(), m3[1, m3.Rows].ToDouble(), m3[2, m3.Rows].ToDouble(), m3[3, m3.Rows].ToDouble());
         }
 
         protected override Type FindOverload(NodeTypes connectingTypes)
@@ -51,7 +51,7 @@ namespace MatrixMod
                     case nameof(float4x4):
                         return typeof(MatrixMod.GaussJordanElimination_float4x4);
                     case nameof(double2x2):
-                        return typeof(MatrixMod.GaussJordanElimination_double2x2);
+                        return typeof(MatrixMod.GaussJordanElimination);
                     case nameof(double3x3):
                         return typeof(MatrixMod.GaussJordanElimination_double3x3);
                     case nameof(double4x4):
@@ -69,7 +69,7 @@ namespace MatrixMod
                     case nameof(float4):
                         return typeof(MatrixMod.GaussJordanElimination_float4x4);
                     case nameof(double2):
-                        return typeof(MatrixMod.GaussJordanElimination_double2x2);
+                        return typeof(MatrixMod.GaussJordanElimination);
                     case nameof(double3):
                         return typeof(MatrixMod.GaussJordanElimination_double3x3);
                     case nameof(double4):
