@@ -2,6 +2,7 @@
 using FrooxEngine.LogiX;
 using BaseX;
 using Mehroz;
+using System;
 
 namespace MatrixMod
 {
@@ -25,6 +26,30 @@ namespace MatrixMod
             Matrix m3 = Matrix.Concatenate(m1, m2);
             m3 = m3.ReducedEchelonForm();
             SolutionMatrix.Value = new double2(m3[0, 2].ToDouble(), m3[1, 2].ToDouble());
+        }
+
+        protected override Type FindOverload(NodeTypes connectingTypes)
+        {
+            if (this.LinearEquationMatrix.IsConnected || this.LinearSolutionMatrix.IsConnected) // If any input is connected skip
+            {
+                return null;
+            }
+            Type type;
+            if (connectingTypes.inputs.TryGetValue("LinearEquationMatrix", out type)) // Get type of wire trying to connect to input LinearEquationMatrix
+            {
+                if(type == typeof(BaseX.double3x3)) // This would perferably be done in some generic way
+                {
+                    return typeof(MatrixMod.GaussJordanElimination_double3x3);  // Return 3x3
+                }
+            }
+            if (connectingTypes.inputs.TryGetValue("LinearSolutionMatrix", out type)) // Get type of wire trying to connect to input LinearSolutionMatrix
+            {
+                if (type == typeof(BaseX.double3))
+                {
+                    return typeof(MatrixMod.GaussJordanElimination_double3x3);
+                }
+            }
+            return null;
         }
     }
 }
