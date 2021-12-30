@@ -14,7 +14,6 @@ namespace MatrixMod
     {
         public readonly Input<float4x4> LinearEquationMatrix;
         public readonly Input<float4> LinearSolutionMatrix;
-        public readonly Output<float4> SolutionMatrix;
 
         public override float4 Content
         {
