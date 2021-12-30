@@ -59,4 +59,10 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)\$(TargetFileName)" "G:\Steam\steamapps\common\NeosVR\Libraries"</PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartArguments>-LoadAssembly "G:\Steam\steamapps\common\NeosVR\Libraries\Gauss-Jordan.dll"  -DontAutoOpenCloudHome -Screen</StartArguments>
+    <StartProgram>G:\Steam\steamapps\common\NeosVR\Neos.exe</StartProgram>
+    <StartWorkingDirectory>G:\Steam\steamapps\common\NeosVR\</StartWorkingDirectory>
+  </PropertyGroup>
 </Project>
