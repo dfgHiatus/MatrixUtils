@@ -17,7 +17,6 @@ namespace MatrixMod
         public readonly Input<double3> LinearSolutionMatrix;
         public readonly Output<double3> SolutionMatrix;
 
-        // Code goes here!
         protected override void OnEvaluate()
         {
             Matrix m1 = new Matrix(LinearEquationMatrix.EvaluateRaw().To2DArray());
@@ -27,28 +26,53 @@ namespace MatrixMod
             m2[2, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().z);
             Matrix m3 = Matrix.Concatenate(m1, m2);
             m3 = m3.ReducedEchelonForm();
-            SolutionMatrix.Value = new double3(m3[0, 2].ToDouble(), m3[1, 2].ToDouble(), m3[2, 2].ToDouble());
+            // m3.Rows should be 2
+            SolutionMatrix.Value = new double3(m3[0, m3.Rows].ToDouble(), m3[1, m3.Rows].ToDouble(), m3[2, m3.Rows].ToDouble());
         }
 
         protected override Type FindOverload(NodeTypes connectingTypes)
         {
-            if (this.LinearEquationMatrix.IsConnected || this.LinearSolutionMatrix.IsConnected) // If any input is connected skip
+            if (this.LinearEquationMatrix.IsConnected || this.LinearSolutionMatrix.IsConnected)
             {
                 return null;
             }
             Type type;
-            if (connectingTypes.inputs.TryGetValue("LinearEquationMatrix", out type)) // Get type of wire trying to connect to input LinearEquationMatrix
+
+            // Get type of wire trying to connect to input LinearEquationMatrix
+            if (connectingTypes.inputs.TryGetValue("LinearEquationMatrix", out type)) 
             {
-                if (type == typeof(BaseX.double2x2)) // This would perferably be done in some generic way
+                switch (type.Name)
                 {
-                    return typeof(MatrixMod.GaussJordanElimination);  // Return 2x2
+                    case nameof(float2x2):
+                        return typeof(MatrixMod.GaussJordanElimination_float2x2);
+                    case nameof(float3x3):
+                        return typeof(MatrixMod.GaussJordanElimination_float3x3);
+                    case nameof(float4x4):
+                        return typeof(MatrixMod.GaussJordanElimination_float4x4);
+                    case nameof(double2x2):
+                        return typeof(MatrixMod.GaussJordanElimination_double2x2);
+                    case nameof(double3x3):
+                        return typeof(MatrixMod.GaussJordanElimination_double3x3);
+                    case nameof(double4x4):
+                        return typeof(MatrixMod.GaussJordanElimination_double4x4);
                 }
             }
-            if (connectingTypes.inputs.TryGetValue("LinearSolutionMatrix", out type)) // Get type of wire trying to connect to input LinearSolutionMatrix
+            if (connectingTypes.inputs.TryGetValue("LinearSolutionMatrix", out type))
             {
-                if (type == typeof(BaseX.double2))
+                switch(type.Name)
                 {
-                    return typeof(MatrixMod.GaussJordanElimination); // Return 2x2
+                    case nameof(float2):
+                        return typeof(MatrixMod.GaussJordanElimination_float2x2);
+                    case nameof(float3):
+                        return typeof(MatrixMod.GaussJordanElimination_float3x3);
+                    case nameof(float4):
+                        return typeof(MatrixMod.GaussJordanElimination_float4x4);
+                    case nameof(double2):
+                        return typeof(MatrixMod.GaussJordanElimination_double2x2);
+                    case nameof(double3):
+                        return typeof(MatrixMod.GaussJordanElimination_double3x3);
+                    case nameof(double4):
+                        return typeof(MatrixMod.GaussJordanElimination_double4x4);
                 }
             }
             return null;

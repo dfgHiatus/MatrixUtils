@@ -11,22 +11,23 @@ namespace MatrixMod
     [Category(new string[] { "LogiX/Math/Matrix" })]
 
     // GaussJordanElimination
-    public sealed class GaussJordanElimination_float2x2 : LogixNode
+    public sealed class GaussJordanElimination_double2x2 : LogixNode
     {
-        public readonly Input<float2x2> LinearEquationMatrix;
-        public readonly Input<float2> LinearSolutionMatrix;
-        public readonly Output<float2> SolutionMatrix;
+        public readonly Input<double2x2> LinearEquationMatrix;
+        public readonly Input<double2> LinearSolutionMatrix;
+        public readonly Output<double2> SolutionMatrix;
 
+        // Code goes here!
         protected override void OnEvaluate()
         {
-            Matrix m1 = new Matrix(((double2x2) LinearEquationMatrix.EvaluateRaw()).To2DArray());
+            Matrix m1 = new Matrix(LinearEquationMatrix.EvaluateRaw().To2DArray());
             Matrix m2 = new Matrix(2, 1);
             m2[0, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().x);
             m2[1, 0] = new Fraction(LinearSolutionMatrix.EvaluateRaw().y);
             Matrix m3 = Matrix.Concatenate(m1, m2);
             m3 = m3.ReducedEchelonForm();
             // m3.Rows should be 2
-            SolutionMatrix.Value = new float2((float) m3[0, m3.Rows].ToDouble(), (float) m3[1, m3.Rows].ToDouble());
+            SolutionMatrix.Value = new double2(m3[0, m3.Rows].ToDouble(), m3[1, m3.Rows].ToDouble());
         }
 
         protected override Type FindOverload(NodeTypes connectingTypes)

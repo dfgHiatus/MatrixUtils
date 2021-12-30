@@ -50,7 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GaussJordanElimination_float4x4.cs" />
+    <Compile Include="GaussJordanElimination_float3x3.cs" />
+    <Compile Include="GaussJordanElimination_float2x2.cs" />
     <Compile Include="GaussJordanElimination_double2x2.cs" />
+    <Compile Include="GaussJordanElimination_double4x4.cs" />
     <Compile Include="GaussJordanElimination_double3x3.cs" />
     <Compile Include="MatrixClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
